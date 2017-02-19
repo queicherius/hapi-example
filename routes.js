@@ -9,7 +9,7 @@ exports.register = (server, options, next) => {
     method: 'GET',
     path: '/ping',
     handler: (request, reply) => {
-      reply('PONG');
+      reply('PONG :>');
     }
   });
 
