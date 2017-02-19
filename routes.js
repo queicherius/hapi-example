@@ -4,6 +4,15 @@ const Boom = require('boom');
 exports.register = (server, options, next) => {
   const messages = server.app.db.collection('messages');
 
+  // Ping
+  server.route({
+    method: 'GET',
+    path: '/ping',
+    handler: (request, reply) => {
+      reply('PONG');
+    }
+  });
+
   // Get all the messages
   server.route({
     method: 'GET',
