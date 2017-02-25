@@ -12,8 +12,10 @@ services:
       - static
     ports:
       - '80:80'
+      - '443:443'
     volumes:
       - '/var/run/docker.sock:/var/run/docker.sock'
+      - '/data/certificates:/etc/letsencrypt/live'
 
   api:
     image: gw2efficiency/api
@@ -39,8 +41,6 @@ services:
       context: .
       dockerfile: _devops/static/Dockerfile
     restart: always
-    ports:
-      - '8080:80'
 
   mongodb:
     image: mongo
