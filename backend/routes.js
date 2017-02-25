@@ -1,15 +1,26 @@
 const Joi = require('joi');
 const Boom = require('boom');
+var uuid = require('uuid')
+var id = uuid()
 
 exports.register = (server, options, next) => {
   const messages = server.app.db.collection('messages');
+
+  // ID!
+  server.route({
+    method: 'GET',
+    path: '/id',
+    handler: (request, reply) => {
+      reply('Container UUID: ' + id)
+    }
+  })
 
   // Ping
   server.route({
     method: 'GET',
     path: '/ping',
     handler: (request, reply) => {
-      reply('PONG :>');
+      reply('PONG');
     }
   });
 

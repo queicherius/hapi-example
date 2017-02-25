@@ -24,7 +24,8 @@
     "dotenv": "^2.0.0",
     "hapi": "^13.3.0",
     "joi": "^8.0.5",
-    "mongojs": "^2.3.0"
+    "mongojs": "^2.3.0",
+    "uuid": "^3.0.1"
   },
   "devDependencies": {
     "nodemon": "^1.9.1"

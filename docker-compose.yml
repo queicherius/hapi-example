@@ -1,0 +1,50 @@
+version: '3'
+services:
+
+  loadbalancing:
+    image: gw2efficiency/loadbalancing
+    build:
+      context: .
+      dockerfile: _devops/loadbalancing/Dockerfile
+    restart: always
+    depends_on:
+      - api
+      - static
+    ports:
+      - '80:80'
+    volumes:
+      - '/var/run/docker.sock:/var/run/docker.sock'
+
+  api:
+    image: gw2efficiency/api
+    build:
+      context: .
+      dockerfile: _devops/api/Dockerfile
+    depends_on:
+      - mongodb
+    environment:
+      MONGO_HOST: mongodb
+    restart: always
+    deploy:
+      mode: replicated
+      replicas: 3
+      update_config:
+        parallelism: 1
+        delay: 3s
+        monitor: 10s
+
+  static:
+    image: gw2efficiency/static
+    build:
+      context: .
+      dockerfile: _devops/static/Dockerfile
+    restart: always
+    ports:
+      - '8080:80'
+
+  mongodb:
+    image: mongo
+    restart: always
+    volumes:
+      - '/data/mongodb/configdb:/data/configdb'
+      - '/data/mongodb/db:/data/db'
