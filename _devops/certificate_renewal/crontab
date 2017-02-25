@@ -1,1 +1,1 @@
-# * * * * *    root    /scripts/request-certificate >> /var/log/cron.log 2>&1
+5 4 * * *    root    /scripts/renew-certificates >> /var/log/cron.log 2>&1
