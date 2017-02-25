@@ -1,6 +1,15 @@
 version: '3'
 services:
 
+  certificate_renewal:
+    image: gw2efficiency/certificate_renewal
+    build:
+      context: .
+      dockerfile: _devops/certificate_renewal/Dockerfile
+    restart: always
+    volumes:
+      - '/data/letsencrypt:/etc/letsencrypt'
+
   loadbalancing:
     image: gw2efficiency/loadbalancing
     build:
@@ -15,7 +24,7 @@ services:
       - '443:443'
     volumes:
       - '/var/run/docker.sock:/var/run/docker.sock'
-      - '/data/certificates:/etc/letsencrypt/live'
+      - '/data/letsencrypt:/etc/letsencrypt'
 
   api:
     image: gw2efficiency/api
