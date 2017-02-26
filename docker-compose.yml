@@ -33,6 +33,7 @@ services:
       dockerfile: _devops/api/Dockerfile
     depends_on:
       - mongodb
+    env_file: secrets.env
     environment:
       MONGO_HOST: mongodb
     restart: always

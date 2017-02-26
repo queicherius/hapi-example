@@ -11,7 +11,15 @@ exports.register = (server, options, next) => {
     method: 'GET',
     path: '/id',
     handler: (request, reply) => {
-      reply('Container UUID: ' + id)
+      reply(`Container UUID: <code>${id}</code><br><br>
+
+Environment: 
+
+<ul>
+  <li>MONGO_HOST: <code>${process.env.MONGO_HOST || 'undefined'}</code></li>
+  <li>SUPER_SECRET: <code>${process.env.SUPER_SECRET || 'undefined'}</code></li>
+  <li>NOT_SET: <code>${process.env.NOT_SET || 'undefined'}</code></li>
+</ul>`)
     }
   })
 
