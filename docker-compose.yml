@@ -39,9 +39,28 @@ services:
     restart: always
     deploy:
       mode: replicated
-      replicas: 3
+      replicas: 12
       update_config:
-        parallelism: 1
+        parallelism: 4
+        delay: 3s
+        monitor: 10s
+
+  worker:
+    image: gw2efficiency/worker
+    build:
+      context: .
+      dockerfile: _devops/api/Dockerfile
+    depends_on:
+      - mongodb
+    env_file: secrets.env
+    environment:
+      MONGO_HOST: mongodb
+    restart: always
+    deploy:
+      mode: replicated
+      replicas: 64
+      update_config:
+        parallelism: 16
         delay: 3s
         monitor: 10s
 
@@ -58,3 +77,7 @@ services:
     volumes:
       - '/data/mongodb/configdb:/data/configdb'
       - '/data/mongodb/db:/data/db'
+
+  redis:
+    image: redis
+    restart: always
