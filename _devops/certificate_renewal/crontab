@@ -1,1 +1,2 @@
-5 4 * * *    root    /scripts/renew-certificates >> /var/log/cron.log 2>&1
+# min    hour    day    month    weekday    command
+5        4       *      *        *          /scripts/renew-certificates

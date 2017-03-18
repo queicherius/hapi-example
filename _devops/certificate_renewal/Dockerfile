@@ -1,13 +1,11 @@
-FROM renskiy/cron
+FROM alpine:3.5
+MAINTAINER David Reeß (queicherius@gmail.com)
 
-RUN echo "deb http://ftp.debian.org/debian jessie-backports main" >> /etc/apt/sources.list
-RUN apt update
-RUN apt-get install certbot -t jessie-backports -y
+RUN apk update && \
+    apk add certbot && \
+    apk add openssl
 
-COPY ./_devops/certificate_renewal/crontab /etc/cron.d/crontab
+ADD ./_devops/certificate_renewal/crontab /var/spool/cron/crontabs/root
+ADD ./_devops/certificate_renewal/renew-certificates.sh /scripts/renew-certificates
 
-COPY ./_devops/certificate_renewal/renew-certificates.sh /scripts/renew-certificates
-RUN chmod a+x /scripts/renew-certificates
-
-RUN mkdir -p /etc/letsencrypt/webroot
-RUN mkdir -p /etc/letsencrypt/live
+CMD ["/usr/sbin/crond", "-f", "-d", "6"]

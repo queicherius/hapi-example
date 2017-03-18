@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "mkdir build && node script.js > build/index.html",
+    "build": "mkdir -p build && cp -R ./images/ build/images && node script.js > build/index.html",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
