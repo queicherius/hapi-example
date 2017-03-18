@@ -41,7 +41,6 @@ services:
       replicas: 8
       update_config:
         parallelism: 4
-        delay: 5s
         monitor: 3s
 
   worker:
@@ -58,7 +57,7 @@ services:
     deploy:
       replicas: 32
       update_config:
-        parallelism: 32
+        parallelism: 4
         monitor: 3s
 
   static:
@@ -67,6 +66,11 @@ services:
       context: .
       dockerfile: _devops/static/Dockerfile
     restart: always
+    deploy:
+      replicas: 2
+      update_config:
+        parallelism: 1
+        monitor: 3s
 
   mongodb:
     image: mongo:3.4
