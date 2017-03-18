@@ -38,12 +38,11 @@ services:
       MONGO_HOST: mongodb
     restart: always
     deploy:
-      mode: replicated
-      replicas: 4
+      replicas: 8
       update_config:
         parallelism: 4
-        delay: 3s
-        monitor: 10s
+        delay: 5s
+        monitor: 3s
 
   worker:
     image: localhost:5000/worker
@@ -57,12 +56,10 @@ services:
       MONGO_HOST: mongodb
     restart: always
     deploy:
-      mode: replicated
-      replicas: 4
+      replicas: 32
       update_config:
-        parallelism: 4
-        delay: 3s
-        monitor: 10s
+        parallelism: 32
+        monitor: 3s
 
   static:
     image: localhost:5000/static
