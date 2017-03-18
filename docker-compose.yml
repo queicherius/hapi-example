@@ -2,7 +2,7 @@ version: '3'
 services:
 
   certificate_renewal:
-    image: gw2efficiency/certificate_renewal
+    image: localhost:5000/certificate_renewal
     build:
       context: .
       dockerfile: _devops/certificate_renewal/Dockerfile
@@ -11,7 +11,7 @@ services:
       - '/data/letsencrypt:/etc/letsencrypt'
 
   loadbalancing:
-    image: gw2efficiency/loadbalancing
+    image: localhost:5000/loadbalancing
     build:
       context: .
       dockerfile: _devops/loadbalancing/Dockerfile
@@ -27,7 +27,7 @@ services:
       - '/data/letsencrypt:/etc/letsencrypt'
 
   api:
-    image: gw2efficiency/api
+    image: localhost:5000/api
     build:
       context: .
       dockerfile: _devops/api/Dockerfile
@@ -39,14 +39,14 @@ services:
     restart: always
     deploy:
       mode: replicated
-      replicas: 12
+      replicas: 4
       update_config:
         parallelism: 4
         delay: 3s
         monitor: 10s
 
   worker:
-    image: gw2efficiency/worker
+    image: localhost:5000/worker
     build:
       context: .
       dockerfile: _devops/api/Dockerfile
@@ -58,14 +58,14 @@ services:
     restart: always
     deploy:
       mode: replicated
-      replicas: 64
+      replicas: 4
       update_config:
-        parallelism: 16
+        parallelism: 4
         delay: 3s
         monitor: 10s
 
   static:
-    image: gw2efficiency/static
+    image: localhost:5000/static
     build:
       context: .
       dockerfile: _devops/static/Dockerfile

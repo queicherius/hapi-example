@@ -1,3 +1,21 @@
+# Running in development
+
+```bash
+docker-compose up --build --remove-orphans
+```
+
+# Running on production
+
+```bash
+# Make sure a registry server is running
+docker run -d -p 5000:5000 --restart=always --name registry registry:2
+
+# Run the deploy!
+sh deploy.sh
+```
+
+---
+
 /etc/rc.local:
 
 echo never > /sys/kernel/mm/transparent_hugepage/enabled
