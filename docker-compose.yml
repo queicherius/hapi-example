@@ -72,12 +72,12 @@ services:
     restart: always
 
   mongodb:
-    image: mongo
+    image: mongo:3.4
     restart: always
     volumes:
       - '/data/mongodb/configdb:/data/configdb'
       - '/data/mongodb/db:/data/db'
 
   redis:
-    image: redis
+    image: redis:3.2-alpine
     restart: always

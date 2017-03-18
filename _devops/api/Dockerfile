@@ -1,11 +1,10 @@
-FROM node:6
+FROM node:6-alpine
+MAINTAINER David Reeß (queicherius@gmail.com)
 
-RUN mkdir -p /application
-COPY ./backend/ /application
+ADD ./backend/ /application
 WORKDIR /application
 
-RUN npm install
+RUN npm install --quiet
 
 EXPOSE 3000
-
 CMD ["npm", "start"]

@@ -1,7 +1,11 @@
-FROM alpine
+FROM alpine:3.5
 MAINTAINER David Reeß (queicherius@gmail.com)
-ADD crontab /etc/cron.d/crontab
-ADD renew-certificates.sh /scripts/renew-certificates
-RUN apk --update add certbot
-RUN mkdir -p /etc/letsencrypt/{webroot,live}
-CMD ["/usr/sbin/crond", "-f", "-d", "0"]
+
+RUN apk update && \
+    apk add certbot && \
+    apk add openssl
+
+ADD ./_devops/certificate_renewal/crontab /var/spool/cron/crontabs/root
+ADD ./_devops/certificate_renewal/renew-certificates.sh /scripts/renew-certificates
+
+CMD ["/usr/sbin/crond", "-f", "-d", "6"]
