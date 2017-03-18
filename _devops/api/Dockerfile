@@ -9,7 +9,7 @@ WORKDIR /application
 
 RUN npm install --quiet
 
-HEALTHCHECK --interval=30s --timeout=3s --retries=3 \
+HEALTHCHECK --interval=10s --timeout=3s --retries=3 \
         CMD curl --fail http://localhost:3000/ping || exit 1
 
 EXPOSE 3000

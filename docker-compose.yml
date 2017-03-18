@@ -41,7 +41,6 @@ services:
       replicas: 8
       update_config:
         parallelism: 4
-        monitor: 3s
 
   worker:
     image: localhost:5000/worker
@@ -57,8 +56,7 @@ services:
     deploy:
       replicas: 32
       update_config:
-        parallelism: 4
-        monitor: 3s
+        parallelism: 8
 
   static:
     image: localhost:5000/static
@@ -70,7 +68,6 @@ services:
       replicas: 2
       update_config:
         parallelism: 1
-        monitor: 3s
 
   mongodb:
     image: mongo:3.4
