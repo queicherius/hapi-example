@@ -1,6 +1,8 @@
 const Joi = require('joi');
 const Boom = require('boom');
 var uuid = require('uuid')
+var os = require("os");
+var hostname = os.hostname()
 var id = uuid()
 
 exports.register = (server, options, next) => {
@@ -11,7 +13,10 @@ exports.register = (server, options, next) => {
     method: 'GET',
     path: '/id',
     handler: (request, reply) => {
-      reply(`Container UUID: <code>${id}</code><br><br>
+      reply(`Container UUID: <code>${id}</code><br>
+Container Hostname: <code>${hostname}</code>
+
+<br><br>
 
 Environment: 
 
@@ -19,7 +24,12 @@ Environment:
   <li>MONGO_HOST: <code>${process.env.MONGO_HOST || 'undefined'}</code></li>
   <li>SUPER_SECRET: <code>${process.env.SUPER_SECRET || 'undefined'}</code></li>
   <li>NOT_SET: <code>${process.env.NOT_SET || 'undefined'}</code></li>
-</ul>`)
+</ul>
+
+<br><br>
+
+<a href="/id">Refresh</a>
+`)
     }
   })
 

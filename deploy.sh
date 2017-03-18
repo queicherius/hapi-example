@@ -20,6 +20,6 @@ docker stack deploy --compose-file docker-compose.yml gw2efficiency
 while true
 do
   sleep 1
-  cls
+  clear
   docker stack services gw2efficiency
 done
